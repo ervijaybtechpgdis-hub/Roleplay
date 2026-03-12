@@ -619,34 +619,36 @@ font-size:0.8rem;
 }
 @media (max-width: 768px){
     .logo-name-wrapper {
-        flex-direction: row; /* side by side */
-        align-items: center; /* vertically center text with logo */
+        flex-direction: row;       /* side by side */
+        align-items: center;       /* vertically center text with logo */
         gap: 12px;
     }
 
     .site-logo {
-        height: 50px; /* logo stays big but smaller than desktop */
+        height: 50px;              /* fixed logo height */
         width: auto;
-        flex-shrink: 0; /* don't shrink */
+        flex-shrink: 0;            /* don't shrink */
     }
 
     .site-title-text {
         display: flex;
-        flex-direction: column;
-        justify-content: center; /* vertically center text relative to logo */
-        height: 50px; /* same as logo height */
+        flex-direction: column;    /* two lines stacked */
+        justify-content: space-between; /* distribute lines across logo height */
+        height: 50px;              /* match logo height */
+    }
+
+    .site-title-text h4,
+    .site-title-text h2 {
+        margin: 0;
+        line-height: 1;            /* minimal line spacing */
     }
 
     .site-title-text h4 {
-        font-size: 1rem; /* adjust for mobile */
-        line-height: 1.2;
-        margin: 0;
+        font-size: calc(50px / 2.2); /* roughly half logo height */
     }
 
     .site-title-text h2 {
-        font-size: 0.85rem; /* adjust for mobile */
-        line-height: 1.2;
-        margin: 0;
+        font-size: calc(50px / 2.5); /* adjust for second line */
     }
 }
 
