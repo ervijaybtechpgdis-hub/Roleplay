@@ -617,41 +617,37 @@ font-size:0.8rem;
 }
 
 }
-.logo-name-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px; /* spacing between logo and text */
-}
+@media (max-width: 768px){
+    .logo-name-wrapper {
+        flex-direction: row; /* side by side */
+        align-items: center; /* vertically center text with logo */
+        gap: 12px;
+    }
 
-.site-logo {
-    height: 80px; /* bigger logo */
-    width: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 15px var(--accent-pink-glow),
-                0 0 30px var(--accent-pink-glow),
-                0 0 45px rgba(214, 51, 132, 0.4);
-    animation: logoGlow 2s ease-in-out infinite alternate;
-}
+    .site-logo {
+        height: 50px; /* logo stays big but smaller than desktop */
+        width: auto;
+        flex-shrink: 0; /* don't shrink */
+    }
 
-.site-title-text h1 {
-    font-size: 2.5rem;
-    color: var(--accent-pink);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    font-weight: 900;
-    text-shadow: 0 0 20px var(--accent-pink-glow);
-    margin: 0;
-}
+    .site-title-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* vertically center text relative to logo */
+        height: 50px; /* same as logo height */
+    }
 
-.site-title-text h2 {
-    font-size: 1.8rem;
-    color: var(--accent-pink);
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-weight: 700;
-    text-shadow: 0 0 15px var(--accent-pink-glow);
-    margin: -5px 0 0 0;
+    .site-title-text h4 {
+        font-size: 1rem; /* adjust for mobile */
+        line-height: 1.2;
+        margin: 0;
+    }
+
+    .site-title-text h2 {
+        font-size: 0.85rem; /* adjust for mobile */
+        line-height: 1.2;
+        margin: 0;
+    }
 }
 
 /* Responsive adjustments */
@@ -699,7 +695,7 @@ font-size:0.8rem;
     <div class="logo-name-wrapper">
         <img src="logo.png" class="site-logo" alt="Logo">
         <div class="site-title-text">
-            <h4>TAMIL CHAT FRIENDSHIP GROUP</h4>
+            <h4>TAMIL CHAT FRIENDSHIP GROUP</h4> <br>
             <h2>Roleplay</h2>
         </div>
     </div>
@@ -1078,9 +1074,9 @@ font-size:0.8rem;
 
         /**
          * Change both participants' emojis to different values
-         */
+         <!DOCTYPE html>
         function changeEmojis() {
-            <!DOCTYPE html>const [emojiData1, emojiData2] = getTwoDifferentEmojis();
+            const [emojiData1, emojiData2] = getTwoDifferentEmojis();
             
             // Add a subtle animation effect
             elements.emoji1.style.transform = 'scale(1.2)';
