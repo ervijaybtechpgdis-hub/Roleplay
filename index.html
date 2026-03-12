@@ -620,20 +620,14 @@ font-size:0.8rem;
 @media (max-width: 768px){
 .logo-name-wrapper {
     display: flex;
-    align-items: center; /* vertically center logo and text */
-    gap: 12px;           /* space between logo and text */
+    flex-direction: row;  /* ensures logo is on the left */
+    align-items: center;  /* vertically center logo + text */
+    gap: 12px;            /* spacing between logo and text */
 }
-
-.site-logo {
-    height: 50px;       /* logo height */
-    width: auto;
-    flex-shrink: 0;     /* prevents shrinking */
-}
-
 .site-title-text {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* vertical centering of text */
+    justify-content: center; /* vertical centering */
 }
 
 /* Responsive adjustments */
@@ -681,8 +675,8 @@ font-size:0.8rem;
     <div class="logo-name-wrapper">
         <img src="logo.png" class="site-logo" alt="Logo">
         <div class="site-title-text">
-            <h4>TAMIL CHAT FRIENDSHIP GROUP</h4> <br>
-            <h2>Roleplay</h2>
+            <h3>TAMIL CHAT FRIENDS WORLD - ROLEPLAY</h3> 
+       
         </div>
     </div>
 </header>
@@ -1059,7 +1053,7 @@ font-size:0.8rem;
         }
 
         /**
-         * Change both participants' emojis to different values
+         <!DOCTYPE html>
          */
         function changeEmojis() {
             const [emojiData1, emojiData2] = getTwoDifferentEmojis();
