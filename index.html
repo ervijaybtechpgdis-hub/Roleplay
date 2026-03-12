@@ -617,23 +617,57 @@ font-size:0.8rem;
 }
 
 }
+.logo-name-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* spacing between logo and text */
+}
+
 .site-logo {
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    height: 60px;   /* bigger logo */
+    height: 80px; /* bigger logo */
     width: auto;
-    border-radius: 8px;  
+    border-radius: 10px;
     box-shadow: 0 0 15px var(--accent-pink-glow),
                 0 0 30px var(--accent-pink-glow),
                 0 0 45px rgba(214, 51, 132, 0.4);
     animation: logoGlow 2s ease-in-out infinite alternate;
 }
+
+.site-title-text h1 {
+    font-size: 2.5rem;
+    color: var(--accent-pink);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 900;
+    text-shadow: 0 0 20px var(--accent-pink-glow);
+    margin: 0;
+}
+
+.site-title-text h2 {
+    font-size: 1.8rem;
+    color: var(--accent-pink);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    text-shadow: 0 0 15px var(--accent-pink-glow);
+    margin: -5px 0 0 0;
+}
+
+/* Responsive adjustments */
 @media (max-width:768px){
+    .logo-name-wrapper{
+        flex-direction: column;
+        gap: 8px;
+    }
     .site-logo {
-        height: 40px;  /* scaled down for small screens */
-        top: 8px;
-        left: 10px;
+        height: 50px;
+    }
+    .site-title-text h1 {
+        font-size: 1.5rem;
+    }
+    .site-title-text h2 {
+        font-size: 1rem;
     }
 }
 @keyframes logoGlow {
@@ -662,9 +696,13 @@ font-size:0.8rem;
              TOP TITLE BAR
         ============================================ -->
         <header class="title-bar">
-    <img src="logo.png" class="site-logo" alt="Logo">  <!-- added logo -->
-    <h3>TAMIL CHAT FRIENDSHIP GROUP </h3> <p><i>presents</i></p>
-    <h2>Roleplay</h2>
+    <div class="logo-name-wrapper">
+        <img src="logo.png" class="site-logo" alt="Logo">
+        <div class="site-title-text">
+            <h1>TAMIL CHAT FRIENDSHIP GROUP</h1>
+            <h2>Roleplay</h2>
+        </div>
+    </div>
 </header>
 
         <!-- ============================================
@@ -1039,9 +1077,9 @@ font-size:0.8rem;
         }
 
         /**
-         >
-         html
-        <!DOCTYPE html>
+         * Change both participants' emojis to different values
+         */
+        function changeEmojis() {
             const [emojiData1, emojiData2] = getTwoDifferentEmojis();
             
             // Add a subtle animation effect
