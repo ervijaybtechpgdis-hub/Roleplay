@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAMIL CHAT FRIENDSHIP GROUP - ROLEPLAY</title>
+    <style>
+        /* ============================================
+           ROOT VARIABLES & RESET
+        ============================================ */
+        :root {
+            --bg-dark: #0d0d0d;
+            --bg-card: #1a1a1a;
+            --bg-panel: #141414;
+            --accent-pink: #d63384;
+            --accent-pink-dim: #8b2258;
+            --accent-pink-glow: rgba(214, 51, 132, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-dim: #555555;
+            --border-color: #2a2a2a;
+            --emoji-glow: rgba(255, 215, 0, 0.4);
+            --emoji-highlight: linear-gradient(135deg, rgba(214, 51, 132, 0.2), rgba(255, 215, 0, 0.2));
+            --desc-bg: #2d1a2e;
+            --desc-text: #ffdd57;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       html, body {
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           MAIN LAYOUT - NO SCROLL
+        ============================================ */
+        .container {
+             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 15px 20px;
+            gap: 12px;
+        }
+
+        /* ============================================
+           TOP TITLE BAR
+        ============================================ */
+        .title-bar {
+    position: relative;  /* added */
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 2px solid var(--accent-pink);
+}
+        .title-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px var(--accent-pink-glow);
+        }
+		.title-bar h2 {
+    font-size: 1.8rem;   /* smaller size */
+    font-weight: 700;
+    color: var(--accent-pink);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px var(--accent-pink-glow);
+}
+.title-bar h3 {
+    font-size: 1.4rem;   /* smaller size */
+    font-weight: 700;
+    color: var(--accent-pink);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px var(--accent-pink-glow);
+}
+
+        .title-bar p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        /* ============================================
+           PHASE INDICATOR BAR
+        ============================================ */
+        .phase-bar {
+            display: flex;
+			flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 12px 0;
+            background: var(--bg-panel);
+            border-radius: 10px;
+        }
+
+        .phase-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            background: transparent;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        .phase-item.active {
+            color: var(--text-primary);
+            background: var(--accent-pink-dim);
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 20px var(--accent-pink-glow);
+        }
+
+        .phase-arrow {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+        }
+
+        /* ============================================
+           MAIN CONTENT AREA
+        ============================================ */
+        .main-content {
+            flex: 1 1 0;
+    min-width: 0;
+            display: flex;
+            gap: 20px;
+            min-height: 0;
+        }
+
+        /* ============================================
+           PARTICIPANT PANELS
+        ============================================ */
+        .participant-panel {
+            flex: 1 1 0;
+    min-width: 0;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        .profile-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-pink-dim), var(--accent-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 3px solid var(--accent-pink);
+            box-shadow: 0 0 15px var(--accent-pink-glow);
+        }
+
+        .name-input {
+            background: var(--bg-panel);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 15px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            text-align: center;
+            width: 80%;
+            max-width: 200px;
+            transition: border-color 0.3s;
+        }
+
+        .name-input:focus {
+            outline: none;
+            border-color: var(--accent-pink);
+        }
+
+        .emoji-display {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-panel);
+            border-radius: 12px;
+            position: relative;
+            min-height: 120px;
+            transition: all 0.4s ease;
+        }
+
+        .emoji-display.locked {
+            filter: blur(3px) brightness(0.4);
+        }
+
+        /* ============================================
+           EMOJI STYLES - BIGGER & HIGHLIGHTED
+        ============================================ */
+        .emoji-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 25px;
+            border-radius: 20px;
+            background: var(--emoji-highlight);
+            border: 3px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        .emoji-wrapper.active {
+            border-color: var(--accent-pink);
+            background: linear-gradient(135deg, rgba(214, 51, 132, 0.25), rgba(255, 215, 0, 0.15));
+            box-shadow: 
+                0 0 30px var(--accent-pink-glow),
+                0 0 60px rgba(255, 215, 0, 0.2),
+                inset 0 0 30px rgba(214, 51, 132, 0.1);
+            animation: emojiPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes emojiPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 30px var(--accent-pink-glow),
+                    0 0 60px rgba(255, 215, 0, 0.2),
+                    inset 0 0 30px rgba(214, 51, 132, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 50px var(--accent-pink-glow),
+                    0 0 80px rgba(255, 215, 0, 0.3),
+                    inset 0 0 40px rgba(214, 51, 132, 0.15);
+            }
+        }
+
+        .emoji-display .emoji {
+            font-size: 7rem;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+            line-height: 1;
+        }
+
+        .emoji-display.locked .emoji {
+            opacity: 0.3;
+        }
+
+        /* Emoji Description Styles - IMPROVED VISIBILITY */
+        .emoji-desc {
+            margin-top: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--desc-text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #3d1f47, #1f3d47);
+            border-radius: 25px;
+            border: 2px solid var(--desc-text);
+            box-shadow: 
+                0 0 15px rgba(255, 221, 87, 0.3),
+                inset 0 0 10px rgba(255, 221, 87, 0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            text-shadow: 0 0 10px rgba(255, 221, 87, 0.5);
+        }
+
+        .emoji-desc.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: descGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes descGlow {
+            from {
+                box-shadow: 
+                    0 0 15px rgba(255, 221, 87, 0.3),
+                    inset 0 0 10px rgba(255, 221, 87, 0.1);
+            }
+            to {
+                box-shadow: 
+                    0 0 25px rgba(255, 221, 87, 0.5),
+                    inset 0 0 15px rgba(255, 221, 87, 0.2);
+            }
+        }
+
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .lock-overlay.visible {
+            opacity: 1;
+        }
+
+        .lock-overlay .lock-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .lock-overlay .lock-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        /* ============================================
+           CENTER SECTION
+        ============================================ */
+        .center-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Timer Display */
+        .timer-container {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-pink);
+            border-radius: 20px;
+            padding: 25px 50px;
+            text-align: center;
+            box-shadow: 0 0 30px var(--accent-pink-glow);
+        }
+
+        .timer-display {
+            font-size: 5rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: var(--text-primary);
+            text-shadow: 0 0 20px var(--accent-pink-glow);
+            letter-spacing: 5px;
+        }
+
+        /* Timer Controls */
+        .timer-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .timer-btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-start {
+            background: var(--accent-pink);
+            color: white;
+        }
+
+        .btn-start:hover {
+            background: #e83e8c;
+            box-shadow: 0 0 15px var(--accent-pink-glow);
+        }
+
+        .btn-pause {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .btn-pause:hover {
+            background: #ffca2c;
+        }
+
+        .btn-reset {
+            background: var(--bg-panel);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-reset:hover {
+            background: var(--border-color);
+        }
+
+        /* Phase Info */
+        .phase-info {
+            text-align: center;
+            padding: 15px 30px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            min-width: 350px;
+        }
+
+        .current-phase-label {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .phase-instruction {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* ============================================
+           SURPRISE ENTRY SECTION
+        ============================================ */
+        .surprise-section {
+            background: linear-gradient(135deg, #1a0a12, #2d1020);
+            border: 2px solid var(--accent-pink);
+            border-radius: 15px;
+            padding: 15px 30px;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease;
+            pointer-events: none;
+            max-width: 400px;
+        }
+
+        .surprise-section.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            animation: surpriseGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes surpriseGlow {
+            from {
+                box-shadow: 0 0 20px var(--accent-pink-glow);
+            }
+            to {
+                box-shadow: 0 0 40px var(--accent-pink-glow), 0 0 60px rgba(214, 51, 132, 0.2);
+            }
+        }
+
+        .surprise-section h3 {
+            font-size: 1.3rem;
+            color: var(--accent-pink);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+
+        .surprise-section .surprise-icon {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .surprise-section .surprise-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .surprise-section .surprise-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           RESPONSIVE ADJUSTMENTS
+        ============================================ */
+        @media (max-height: 700px) {
+            .timer-display {
+                font-size: 3.5rem;
+            }
+            .timer-container {
+                padding: 15px 40px;
+            }
+            .emoji-display .emoji {
+                font-size: 5rem;
+            }
+            .emoji-desc {
+                font-size: 0.9rem;
+                padding: 6px 15px;
+            }
+            .profile-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .phase-item {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            .timer-display {
+                font-size: 3rem;
+            }
+            .emoji-display .emoji {
+                font-size: 4rem;
+            }
+            .emoji-desc {
+                font-size: 0.8rem;
+            }
+        }
+		/* ============================================
+   MOBILE LAYOUT (PLAYER TOP / TIMER BOTTOM)
+============================================ */
+@media (max-width: 768px){
+
+html, body{
+overflow-y:auto;
+}
+
+/* grid layout */
+.main-content{
+display:grid;
+grid-template-columns:1fr 1fr;
+grid-template-rows:auto auto;
+gap:12px;
+align-items:start;
+}
+
+/* players top left & right */
+.participant-panel:nth-child(1){
+grid-column:1;
+grid-row:1;
+}
+
+.participant-panel:nth-child(3){
+grid-column:2;
+grid-row:1;
+}
+
+/* timer center below */
+.center-section{
+grid-column:1 / span 2;
+grid-row:2;
+justify-self:center;
+}
+
+/* shrink emojis */
+.emoji-display .emoji{
+font-size:4rem;
+}
+
+/* smaller timer */
+.timer-display{
+font-size:2.5rem;
+}
+
+/* smaller panels */
+.participant-panel{
+padding:12px;
+}
+
+/* smaller icons */
+.profile-icon{
+width:55px;
+height:55px;
+font-size:1.4rem;
+}
+
+/* smaller input */
+.name-input{
+font-size:0.9rem;
+}
+
+/* smaller description */
+.emoji-desc{
+font-size:0.75rem;
+padding:6px 12px;
+}
+
+/* smaller timer buttons */
+.timer-btn{
+padding:8px 14px;
+font-size:0.8rem;
+}
+
+}
+@media (max-width:768px){
+
+/* hide only the top phase navigation */
+.phase-bar{
+    display:none;
+}
+
+}
+.site-logo {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    height: 40px;
+    width: auto;
+    border-radius: 8px;  /* optional rounded corners */
+    box-shadow: 0 0 15px var(--accent-pink-glow),
+                0 0 30px var(--accent-pink-glow),
+                0 0 45px rgba(214, 51, 132, 0.4);
+    animation: logoGlow 2s ease-in-out infinite alternate;
+}
+@media (max-width:768px){
+    .site-logo {
+        height: 28px;
+        top: 8px;
+        left: 10px;
+    }
+}
+@keyframes logoGlow {
+    from {
+        box-shadow: 0 0 10px var(--accent-pink-glow),
+                    0 0 20px var(--accent-pink-glow);
+    }
+    to {
+        box-shadow: 0 0 25px var(--accent-pink-glow),
+                    0 0 50px rgba(214, 51, 132, 0.4),
+                    0 0 75px rgba(255, 215, 0, 0.2);
+    }
+}
+@media (max-width:768px){
+    .site-logo {
+        height: 28px;
+        top: 8px;
+        left: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ============================================
+             TOP TITLE BAR
+        ============================================ -->
+        <header class="title-bar">
+    <img src="logo.png" class="site-logo" alt="Logo">  <!-- added logo -->
+    <h3>TAMIL CHAT FRIENDSHIP GROUP </h3> <p><i>presents</i></p>
+    <h2>Roleplay</h2>
+</header>
+
+        <!-- ============================================
+             PHASE INDICATOR BAR
+        ============================================ -->
+        <nav class="phase-bar">
+            <div class="phase-item active" id="phase-free">
+                <span>🎭</span>
+                <span>Free Roleplay</span>
+            </div>
+            <span class="phase-arrow">→</span>
+            <div class="phase-item" id="phase-emoji">
+                <span>😈</span>
+                <span>Emoji Chaos</span>
+            </div>
+            <span class="phase-arrow">→</span>
+            <div class="phase-item" id="phase-surprise">
+                <span>🎪</span>
+                <span>Surprise Entry</span>
+            </div>
+        </nav>
+
+        <!-- ============================================
+             MAIN CONTENT AREA
+        ============================================ -->
+        <main class="main-content">
+            <!-- LEFT PARTICIPANT PANEL -->
+            <div class="participant-panel">
+                <div class="profile-icon">👤</div>
+                <input type="text" class="name-input" id="name-1" placeholder="Participant 1" value="Player 1">
+                <div class="emoji-display locked" id="emoji-display-1">
+                    <div class="emoji-wrapper" id="emoji-wrapper-1">
+                        <span class="emoji" id="emoji-1">😶</span>
+                        <span class="emoji-desc" id="emoji-desc-1">Waiting...</span>
+                    </div>
+                    <div class="lock-overlay visible" id="lock-overlay-1">
+                        <span class="lock-icon">🔒</span>
+                        <span class="lock-text" id="lock-text-1">Emojis Locked – Free Roleplay</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER SECTION -->
+            <div class="center-section">
+                <!-- Timer -->
+                <div class="timer-container">
+                    <div class="timer-display" id="timer">00:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn btn-start" id="btn-start">Start</button>
+                        <button class="timer-btn btn-pause" id="btn-pause">Pause</button>
+                        <button class="timer-btn btn-reset" id="btn-reset">Reset</button>
+                    </div>
+                </div>
+
+                <!-- Phase Info -->
+                <div class="phase-info">
+                    <div class="current-phase-label" id="phase-label">Free Roleplay</div>
+                    <div class="phase-instruction" id="phase-instruction">Build your story freely. No emoji yet.</div>
+                </div>
+
+                <!-- Surprise Entry Section (appears at 4:00) -->
+                <div class="surprise-section" id="surprise-section">
+                    <div class="surprise-icon">🎭✨</div>
+                    <h3>Surprise Entry</h3>
+                    <p class="surprise-subtitle">The host has joined the roleplay!</p>
+                    <p class="surprise-desc">A mysterious new character enters the scene. Adapt your story to include this unexpected twist!</p>
+                </div>
+            </div>
+
+            <!-- RIGHT PARTICIPANT PANEL -->
+            <div class="participant-panel">
+                <div class="profile-icon">👤</div>
+                <input type="text" class="name-input" id="name-2" placeholder="Participant 2" value="Player 2">
+                <div class="emoji-display locked" id="emoji-display-2">
+                    <div class="emoji-wrapper" id="emoji-wrapper-2">
+                        <span class="emoji" id="emoji-2">😶</span>
+                        <span class="emoji-desc" id="emoji-desc-2">Waiting...</span>
+                    </div>
+                    <div class="lock-overlay visible" id="lock-overlay-2">
+                        <span class="lock-icon">🔒</span>
+                        <span class="lock-text" id="lock-text-2">Emojis Locked – Free Roleplay</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ============================================
+         JAVASCRIPT LOGIC
+    ============================================ -->
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const CONFIG = {
+            totalDuration: 360, // 6 minutes in seconds
+            phases: {
+                freeRoleplay: { start: 0, end: 120 },      // 0:00 - 2:00
+                emojiChaos: { start: 120, end: 240 },      // 2:00 - 4:00
+                surpriseEntry: { start: 240, end: 360 }    // 4:00 - 6:00
+            },
+            emojiChangeTimes: [120, 150, 180, 210], // 2:00, 2:30, 3:00, 3:30
+            emojis: [
+                { emoji: '😄', desc: 'Happy & Joyful' },
+                { emoji: '😢', desc: 'Sad & Crying' },
+                { emoji: '😡', desc: 'Angry & Furious' },
+                { emoji: '😱', desc: 'Scared & Shocked' },
+                { emoji: '😐', desc: 'Neutral & Blank' },
+                { emoji: '😈', desc: 'Evil & Mischievous' },
+                { emoji: '🤯', desc: 'Mind Blown' },
+                { emoji: '🥺', desc: 'Pleading & Cute' },
+                { emoji: '😎', desc: 'Cool & Confident' },
+                { emoji: '👵', desc: 'Old Person Voice' },
+                { emoji: '😪', desc: 'Sleepy & Drowsy' },
+                { emoji: '🚺', desc: 'Change Gender' },
+                { emoji: '🥳', desc: 'Party & Celebrating' },
+                { emoji: '🤧', desc: 'Sick & Sneezing' },
+                { emoji: '🤖', desc: 'Robotic Voice' },
+                { emoji: '🤡', desc: 'Silly & Clownish' },
+                { emoji: '🥴', desc: 'Drunk' }
+            ]
+        };
+
+        // ============================================
+        // STATE VARIABLES
+        // ============================================
+        let timerInterval = null;
+        let currentSeconds = 0;
+        let isRunning = false;
+        let lastEmojiChangeTime = -1; // Track last emoji change to prevent duplicates
+
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
+        const elements = {
+            timer: document.getElementById('timer'),
+            btnStart: document.getElementById('btn-start'),
+            btnPause: document.getElementById('btn-pause'),
+            btnReset: document.getElementById('btn-reset'),
+            phaseFree: document.getElementById('phase-free'),
+            phaseEmoji: document.getElementById('phase-emoji'),
+            phaseSurprise: document.getElementById('phase-surprise'),
+            phaseLabel: document.getElementById('phase-label'),
+            phaseInstruction: document.getElementById('phase-instruction'),
+            surpriseSection: document.getElementById('surprise-section'),
+            emojiDisplay1: document.getElementById('emoji-display-1'),
+            emojiDisplay2: document.getElementById('emoji-display-2'),
+            emoji1: document.getElementById('emoji-1'),
+            emoji2: document.getElementById('emoji-2'),
+            emojiDesc1: document.getElementById('emoji-desc-1'),
+            emojiDesc2: document.getElementById('emoji-desc-2'),
+            emojiWrapper1: document.getElementById('emoji-wrapper-1'),
+            emojiWrapper2: document.getElementById('emoji-wrapper-2'),
+            lockOverlay1: document.getElementById('lock-overlay-1'),
+            lockOverlay2: document.getElementById('lock-overlay-2'),
+            lockText1: document.getElementById('lock-text-1'),
+            lockText2: document.getElementById('lock-text-2')
+        };
+
+        // ============================================
+        // TIMER FUNCTIONS
+        // ============================================
+
+        /**
+         * Format seconds to MM:SS display
+         */
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        /**
+         * Update the timer display and check phase changes
+         */
+        function updateTimer() {
+            if (currentSeconds >= CONFIG.totalDuration) {
+                stopTimer();
+                currentSeconds = CONFIG.totalDuration;
+            }
+            
+            elements.timer.textContent = formatTime(currentSeconds);
+            updatePhase();
+            checkEmojiChange();
+            
+            if (isRunning && currentSeconds < CONFIG.totalDuration) {
+                currentSeconds++;
+            }
+        }
+
+        /**
+         * Start the timer
+         */
+        function startTimer() {
+            if (isRunning) return;
+            if (currentSeconds >= CONFIG.totalDuration) return;
+            
+            isRunning = true;
+            elements.btnStart.textContent = 'Running';
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        /**
+         * Pause the timer
+         */
+        function pauseTimer() {
+            isRunning = false;
+            elements.btnStart.textContent = 'Start';
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        /**
+         * Stop the timer completely
+         */
+        function stopTimer() {
+            pauseTimer();
+            elements.btnStart.textContent = 'Finished';
+        }
+
+        /**
+         * Reset the timer to initial state
+         */
+        function resetTimer() {
+            pauseTimer();
+            currentSeconds = 0;
+            lastEmojiChangeTime = -1;
+            elements.timer.textContent = '00:00';
+            elements.btnStart.textContent = 'Start';
+            
+            // Reset emojis
+            elements.emoji1.textContent = '😶';
+            elements.emoji2.textContent = '😶';
+            elements.emojiDesc1.textContent = 'Waiting...';
+            elements.emojiDesc2.textContent = 'Waiting...';
+            elements.emojiDesc1.classList.remove('visible');
+            elements.emojiDesc2.classList.remove('visible');
+            elements.emojiWrapper1.classList.remove('active');
+            elements.emojiWrapper2.classList.remove('active');
+            
+            // Reset phase display
+            updatePhase();
+            
+            // Hide surprise section
+            elements.surpriseSection.classList.remove('visible');
+        }
+
+        // ============================================
+        // PHASE MANAGEMENT
+        // ============================================
+
+        /**
+         * Determine current phase based on time
+         */
+        function getCurrentPhase() {
+            if (currentSeconds < CONFIG.phases.freeRoleplay.end) {
+                return 'freeRoleplay';
+            } else if (currentSeconds < CONFIG.phases.emojiChaos.end) {
+                return 'emojiChaos';
+            } else {
+                return 'surpriseEntry';
+            }
+        }
+
+        /**
+         * Update phase indicators and info based on current time
+         */
+        function updatePhase() {
+            const phase = getCurrentPhase();
+            
+            // Reset all phase indicators
+            elements.phaseFree.classList.remove('active');
+            elements.phaseEmoji.classList.remove('active');
+            elements.phaseSurprise.classList.remove('active');
+            
+            // Update based on current phase
+            switch (phase) {
+                case 'freeRoleplay':
+                    elements.phaseFree.classList.add('active');
+                    elements.phaseLabel.textContent = 'Free Roleplay';
+                    elements.phaseInstruction.textContent = 'Build your story freely. No emoji yet.';
+                    lockEmojis('Free Roleplay');
+                    elements.surpriseSection.classList.remove('visible');
+                    // Hide descriptions and remove highlight
+                    elements.emojiDesc1.classList.remove('visible');
+                    elements.emojiDesc2.classList.remove('visible');
+                    elements.emojiWrapper1.classList.remove('active');
+                    elements.emojiWrapper2.classList.remove('active');
+                    break;
+                    
+                case 'emojiChaos':
+                    elements.phaseEmoji.classList.add('active');
+                    elements.phaseLabel.textContent = 'Emoji Chaos';
+                    elements.phaseInstruction.textContent = 'Use the emoji emotion in your conversation.';
+                    unlockEmojis();
+                    elements.surpriseSection.classList.remove('visible');
+                    // Show descriptions and add highlight
+                    elements.emojiDesc1.classList.add('visible');
+                    elements.emojiDesc2.classList.add('visible');
+                    elements.emojiWrapper1.classList.add('active');
+                    elements.emojiWrapper2.classList.add('active');
+                    break;
+                    
+                case 'surpriseEntry':
+                    elements.phaseSurprise.classList.add('active');
+                    elements.phaseLabel.textContent = 'Surprise Entry';
+                    elements.phaseInstruction.textContent = 'The host has joined as a new character.';
+                    lockEmojis('Surprise Entry');
+                    elements.surpriseSection.classList.add('visible');
+                    // Hide descriptions and remove highlight
+                    elements.emojiDesc1.classList.remove('visible');
+                    elements.emojiDesc2.classList.remove('visible');
+                    elements.emojiWrapper1.classList.remove('active');
+                    elements.emojiWrapper2.classList.remove('active');
+                    break;
+            }
+        }
+
+        // ============================================
+        // EMOJI MANAGEMENT
+        // ============================================
+
+        /**
+         * Lock emojis with overlay
+         */
+        function lockEmojis(phaseName) {
+            elements.emojiDisplay1.classList.add('locked');
+            elements.emojiDisplay2.classList.add('locked');
+            elements.lockOverlay1.classList.add('visible');
+            elements.lockOverlay2.classList.add('visible');
+            elements.lockText1.textContent = `Emojis Locked – ${phaseName}`;
+            elements.lockText2.textContent = `Emojis Locked – ${phaseName}`;
+        }
+
+        /**
+         * Unlock emojis and hide overlay
+         */
+        function unlockEmojis() {
+            elements.emojiDisplay1.classList.remove('locked');
+            elements.emojiDisplay2.classList.remove('locked');
+            elements.lockOverlay1.classList.remove('visible');
+            elements.lockOverlay2.classList.remove('visible');
+        }
+
+        /**
+         * Get two different random emoji objects
+         */
+        function getTwoDifferentEmojis() {
+            const shuffled = [...CONFIG.emojis].sort(() => Math.random() - 0.5);
+            return [shuffled[0], shuffled[1]];
+        }
+
+        /**
+         * Check if it's time to change emojis (only during Emoji Chaos phase)
+         */
+        function checkEmojiChange() {
+            const phase = getCurrentPhase();
+            
+            // Only change emojis during Emoji Chaos phase
+            if (phase !== 'emojiChaos') return;
+            
+            // Check if current time matches any emoji change time
+            for (const changeTime of CONFIG.emojiChangeTimes) {
+                if (currentSeconds === changeTime && lastEmojiChangeTime !== changeTime) {
+                    lastEmojiChangeTime = changeTime;
+                    changeEmojis();
+                    break;
+                }
+            }
+        }
+
+        /**
+         * Change both participants' emojis to different values
+         */
+        function changeEmojis() {
+            const [emojiData1, emojiData2] = getTwoDifferentEmojis();
+            
+            // Add a subtle animation effect
+            elements.emoji1.style.transform = 'scale(1.2)';
+            elements.emoji2.style.transform = 'scale(1.2)';
+            
+            // Set new emojis and descriptions
+            elements.emoji1.textContent = emojiData1.emoji;
+            elements.emoji2.textContent = emojiData2.emoji;
+            elements.emojiDesc1.textContent = emojiData1.desc;
+            elements.emojiDesc2.textContent = emojiData2.desc;
+            
+            // Reset scale after animation
+            setTimeout(() => {
+                elements.emoji1.style.transform = 'scale(1)';
+                elements.emoji2.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        elements.btnStart.addEventListener('click', startTimer);
+        elements.btnPause.addEventListener('click', pauseTimer);
+        elements.btnReset.addEventListener('click', resetTimer);
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        
+        // Initial phase update on page load
+        updatePhase();
+        
+        console.log('EL Emoji Flashers initialized successfully!');
+        console.log('Phase timings:');
+        console.log('- Free Roleplay: 0:00 - 2:00');
+        console.log('- Emoji Chaos: 2:00 - 4:00 (emoji changes at 2:00, 2:30, 3:00, 3:30)');
+        console.log('- Surprise Entry: 4:00 - 6:00');
+        console.log('');
+        console.log('Emoji Descriptions:');
+        CONFIG.emojis.forEach(item => {
+            console.log(`${item.emoji} - ${item.desc}`);
+        });
+    </script>
+</body>
+</html>
